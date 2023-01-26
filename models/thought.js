@@ -1,7 +1,6 @@
-const { Timestamp } = require("mongodb");
 const { Schema, model } = require("mongoose");
 const reaction = require("./reaction");
-const dateAdded = require("./utils/createdAt");
+const dateAdded = require("../utils/createdAt");
 
 //define schema for thought model
 const thoughtSchema = new Schema(
@@ -37,4 +36,4 @@ thoughtSchema.virtual("reactionCount").get(function () {
 //define & export model
 const Thought = model("thought", thoughtSchema);
 
-module.exports = Thought;
+module.exports = { Thought };

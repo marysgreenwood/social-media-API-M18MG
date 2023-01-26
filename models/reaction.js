@@ -1,5 +1,5 @@
 const { Schema, Types } = require("mongoose");
-const dateAdded = require("./utils/createdAt");
+const dateAdded = require("../utils/createdAt");
 
 //define reaction schema
 const reactionSchema = new Schema(

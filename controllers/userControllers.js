@@ -1,6 +1,6 @@
 const { User, Thought } = require("../models/user");
 
-module.exports = {
+userControllers = {
   // GET all users
   getUsers(req, res) {
     User.find()
@@ -12,7 +12,7 @@ module.exports = {
     User.findOne({ _id: req.params.userId })
       //TRY COMMENTING OUT .SELECT & SEE WHAT HAPPENS
       .select("-__v")
-      .populate("posts", "friends")
+      .populate("thoughts", "friends")
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
@@ -22,9 +22,13 @@ module.exports = {
   },
   // create a new user
   createUser(req, res) {
+    console.log("request body", req.body);
     User.create(req.body)
       .then((dbUserData) => res.json(dbUserData))
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        res.status(500).json(err);
+        console.log(err);
+      });
   },
   // update a user by its _id
   updateUser(req, res) {
@@ -81,3 +85,5 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 };
+
+module.exports = userControllers;
