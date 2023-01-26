@@ -62,7 +62,7 @@ module.exports = {
       .then((friend) =>
         !friend
           ? res.status(404).json({ message: "User does not exist!" })
-          : res.json({ message: `You and ${friend} are now friends!` })
+          : res.json({ message: "Friend successfully added!" })
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -76,7 +76,7 @@ module.exports = {
       .then((friend) =>
         !friend
           ? res.status(404).json({ message: "Friend does not exist!" })
-          : res.json({ message: `You and ${friend} are no longer friends.` })
+          : res.json({ message: "Friend successfully removed." })
       )
       .catch((err) => res.status(500).json(err));
   },
