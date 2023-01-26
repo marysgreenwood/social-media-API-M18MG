@@ -1,5 +1,5 @@
 const { Schema, Types } = require("mongoose");
-
+const dateAdded = require("./utils/createdAt");
 
 //define reaction schema
 const reactionSchema = new Schema(
@@ -18,8 +18,8 @@ const reactionSchema = new Schema(
       required: true,
     },
     createdAt: {
-      type: Date,
-      default: Date.now,
+      type: String,
+      get: dateAdded,
       // Use a getter method to format the timestamp on query
     },
   },
@@ -29,3 +29,5 @@ const reactionSchema = new Schema(
     },
   }
 );
+
+module.exports = reactionSchema;

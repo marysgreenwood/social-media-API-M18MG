@@ -1,0 +1,8 @@
+//getter function to format date
+const dateAdded = () => {
+  var d = new Date();
+  var dateString = d.toLocaleDateString();
+  return dateString;
+};
+
+module.exports = dateAdded;
