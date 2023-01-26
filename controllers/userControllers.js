@@ -9,7 +9,7 @@ module.exports = {
   },
   // GET a single user by its _id and populated thought and friend data
   getSingleUser(req, res) {
-    User.findOne({ user_id: req.params.userId })
+    User.findOne({ _id: req.params.userId })
       //TRY COMMENTING OUT .SELECT & SEE WHAT HAPPENS
       .select("-__v")
       .populate("posts", "friends")
@@ -29,7 +29,7 @@ module.exports = {
   // update a user by its _id
   updateUser(req, res) {
     User.findOneAndUpdate(
-      { user_id: req.params.userId },
+      { _id: req.params.userId },
       { $set: req.body },
       { runValidators: true, new: true }
     )
@@ -41,7 +41,7 @@ module.exports = {
   },
   // remove user by its _id (& associated thoughts)
   deleteUser(req, res) {
-    User.findOneAndDelete({ user_id: req.params.userId })
+    User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
@@ -55,7 +55,7 @@ module.exports = {
   //add a new friend to a user's friend list
   addFriend(req, res) {
     User.findOneAndUpdate(
-      { user_id: req.params.userId },
+      { _id: req.params.userId },
       { $addToSet: { friends: req.body } },
       { runValidators: true, new: true }
     )
@@ -69,7 +69,7 @@ module.exports = {
   //remove a friend from a user's friend list
   removeFriend(req, res) {
     User.findOneAndUpdate(
-      { user_id: req.params.userId },
+      { _id: req.params.userId },
       { $pull: { tags: { tagId: req.params.tagId } } },
       { runValidators: true, new: true }
     )
