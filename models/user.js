@@ -1,10 +1,10 @@
-const { Schema, Types } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 
 //schema for user model
 const userSchema = new Schema(
   {
     user_id: {
-      type: Types.ObjectId(),
+      type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
     username: {
