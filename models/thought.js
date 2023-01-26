@@ -1,7 +1,7 @@
 const { Timestamp } = require("mongodb");
 const { Schema, model } = require("mongoose");
 const reaction = require("./reaction");
-const dateAdded = require ('./utils/createdAt')
+const dateAdded = require("./utils/createdAt");
 
 //define schema for thought model
 const thoughtSchema = new Schema(
@@ -15,7 +15,6 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: String,
       get: dateAdded,
-      // Use a getter method to format the timestamp on query--Date.prototype.toLocaleDateString()
     },
     username: {
       type: String,
@@ -34,7 +33,6 @@ const thoughtSchema = new Schema(
 thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
-
 
 //define & export model
 const Thought = model("thought", thoughtSchema);
