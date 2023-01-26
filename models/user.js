@@ -4,7 +4,7 @@ const { Schema, Types } = require("mongoose");
 const userSchema = new Schema(
   {
     user_id: {
-      type: Schema.type.ObjectId(),
+      type: Types.ObjectId(),
       default: () => new Types.ObjectId(),
     },
     username: {
