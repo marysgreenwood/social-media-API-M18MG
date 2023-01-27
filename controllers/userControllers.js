@@ -1,4 +1,4 @@
-const { User, Thought } = require("../models/user");
+const { User, Thought } = require("../models");
 
 userControllers = {
   // GET all users
@@ -18,11 +18,13 @@ userControllers = {
           ? res.status(404).json({ message: "No user with that ID" })
           : res.json(user)
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        res.status(500).json(err);
+        console.log(err);
+      });
   },
   // create a new user
   createUser(req, res) {
-    console.log("request body", req.body);
     User.create(req.body)
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => {
@@ -48,7 +50,7 @@ userControllers = {
     User.findOneAndDelete({ _id: req.params.userid })
       .then((user) =>
         !user
-          ? res.status(404).json({ message: "No user with that ID" })
+          ? res.status(404).json({ message: "No user with that id" })
           : Thought.deleteMany({ _id: { $in: user.thoughts } })
       )
       .then(() =>
@@ -60,7 +62,7 @@ userControllers = {
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userid },
-      { $addToSet: { friends: req.params.friendId } },
+      { $addToSet: { friends: { friendId: req.params.friendId } } },
       { runValidators: true, new: true }
     )
       .then((friend) =>
@@ -73,7 +75,7 @@ userControllers = {
   //remove a friend from a user's friend list
   removeFriend(req, res) {
     User.findOneAndUpdate(
-      { _id: req.params.userId },
+      { _id: req.params.userid },
       { $pull: { friends: { _id: req.params.friendId } } },
       { runValidators: true, new: true }
     )
@@ -82,7 +84,9 @@ userControllers = {
           ? res.status(404).json({ message: "Friend does not exist!" })
           : res.json({ message: "Friend successfully removed." })
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        res.status(500).json(err);
+      });
   },
 };
 

@@ -15,21 +15,25 @@ const thoughtSchema = new Schema(
       type: String,
       get: dateAdded,
     },
+
     username: {
       type: String,
       required: true,
     },
+
     reactions: [reaction],
   },
   {
     toJSON: {
-      virtuals: true,
+      //virtuals: true,
       getters: true,
     },
   }
 );
 // virtual that retrieves the length of the thought's reactions array field on query
+
 thoughtSchema.virtual("reactionCount").get(function () {
+
   return this.reactions.length;
 });
 
