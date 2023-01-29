@@ -10,9 +10,9 @@ userControllers = {
   // GET a single user by its _id and populated thought and friend data
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userid })
-      //TRY COMMENTING OUT .SELECT & SEE WHAT HAPPENS
       .select("-__v")
-      .populate("thoughts", "friends")
+      .populate("friends")
+      .populate({ path: "thoughts", model: Thought })
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
@@ -20,7 +20,7 @@ userControllers = {
       )
       .catch((err) => {
         res.status(500).json(err);
-        console.log(err);
+        console.log("NOOOOOOOOOOOOOOOO", err);
       });
   },
   // create a new user
@@ -62,7 +62,7 @@ userControllers = {
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userid },
-      { $addToSet: { friends: { friendId: req.params.friendId } } },
+      { $addToSet: { friends: { _id: req.params.friendId } } },
       { runValidators: true, new: true }
     )
       .then((friend) =>
