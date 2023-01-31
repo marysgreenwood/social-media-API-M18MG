@@ -76,13 +76,13 @@ userControllers = {
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userid },
-      { $pull: { friends: { _id: req.params.friendId } } },
+      { $pull: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
-      .then((friend) =>
-        !friend
-          ? res.status(404).json({ message: "Friend does not exist!" })
-          : res.json({ message: "Friend successfully removed." })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "Incorrect user id" })
+          : res.json({ message: "Friend removed successfully" })
       )
       .catch((err) => {
         res.status(500).json(err);
