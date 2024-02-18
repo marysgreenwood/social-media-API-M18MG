@@ -5,7 +5,7 @@
 ## Description
 
 This project provides the backend technology for a social media platform wherein users can post thoughts, react to thoughts, and befriend other users.
-Demo: https://app.castify.com/view/21faab81-711f-40a2-bb44-e939e6a4b470
+Demo: https://drive.google.com/file/d/1ZUWFBxMz6VEb_UQszyd1Zd2dGYn1i9rr/view
 
 ## Table of Contents
 
